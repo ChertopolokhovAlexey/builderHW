@@ -7,16 +7,16 @@ public class Main {
                 .setName("Alex")
                 .setSurname("Fiksik")
                 .setAge(32)
-                .setAddress("Murmansk")
+                .setCity("Murmansk")
                 .build();
         Person son = dad.newChildBuilder()
                 .setName("Nolik")
                 .build();
-        System.out.println(dad.getName(dad.name) + " " + dad.getSurname(dad.surname)
+        System.out.println(dad.getName() + " " + dad.getSurname(dad.surname)
                 + " from " + dad.getAddress(dad.city)
-                + " has son " + son.getName(son.name));
+                + " has son " + son.getName());
         System.out.println(dad);
         System.out.println(son);
-        System.out.println("Now you is " + dad.happyBirthday() + " years old");
+        System.out.println("Happy Birthday!!! Now you is " + dad.happyBirthday() + " years old");
     }
 }

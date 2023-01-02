@@ -5,64 +5,80 @@ import java.util.OptionalInt;
 public class Person {
     protected final String name;
     protected final String surname;
-    protected  int age;
+    protected  int age = -1;
     protected  String city;
 
 
-    public Person(String name, String surname, int age, String city) {
+    public Person(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public Person(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;
         this.age = age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+   public void setCity(String city) {
         this.city = city;
     }
 
-    public boolean hasAge() {
-        return age != 0;
+    public String getName() {
+        return name;
     }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public boolean hasAge() {
+        return age != -1;
+    }
+
     public boolean hasAddress(){
         return city != null;
     }
+
     public String getName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Field name is empty!");
-        }else {
             return name;
-        }
     }
     public String getSurname(String surname) {
-        if (surname == null) {
-            throw new IllegalArgumentException("Field surname is empty!");
-        } else {
             return surname;
-        }
     }
+
     public OptionalInt getAge (int age) {
-        if (age < 0 || age > 100) {
-            this.age = 0;
-            throw new IllegalArgumentException("Incorrect age!");
-        } else {
-            return OptionalInt.of(age);
-        }
+        return hasAge() ? OptionalInt.of(age): OptionalInt.empty();
     }
     public String getAddress(String city) {
         return city;
     }
-    public void setAddress(String city) {
 
-    }
     public int happyBirthday() {
-       if (age!=0) {
-           this.age = age + 1;
+       if (hasAge()) {
+           age++;
        } else {age = 0;
        }
        return age;
     }
+
     public PersonBuilder newChildBuilder() {
         return new PersonBuilder()
                 .setSurname(this.surname)
-                .setAddress(this.city);
+                .setCity(this.city);
     }
-
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder("person:\n\t"
@@ -72,7 +88,7 @@ public class Person {
         if (!hasAge()){
             sb.append("age:\tunknown\n\t");
         }else {
-            sb.append( "age:\t" + getAge(age) + "\n\t");
+            sb.append( "age:\t" + age + "\n\t");
         }
 
         if(!hasAddress()) {
